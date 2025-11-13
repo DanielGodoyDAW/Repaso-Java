@@ -28,7 +28,7 @@ Compilación y ejecución mínima (PowerShell en Windows)
 ```powershell
 mkdir out; 
 javac -d out src\*.java src\Archivos\*.java src\Maquina_Snacks\*.java src\Maquina_Snacks_archivos\dominio\*.java src\Maquina_Snacks_archivos\presentacion\*.java src\Maquina_Snacks_archivos\servicio\*.java
-java -cp out Main
+java -cp out Main 
 ```
 
 Notas finales
