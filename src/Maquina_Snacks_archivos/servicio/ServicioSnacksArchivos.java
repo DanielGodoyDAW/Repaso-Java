@@ -5,6 +5,8 @@ import Maquina_Snacks_archivos.dominio.Snack;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class ServicioSnacksArchivos implements ISevicioSnacks{
         try{
             existe = archivo.exists();
             if ((existe)){
-                //this.snacks = obtenerSnacks();
+                this.snacks = obtenerSnacks();
             }else {
                 var salida = new PrintWriter(new FileWriter(archivo));
                 salida.close();
@@ -34,6 +36,25 @@ public class ServicioSnacksArchivos implements ISevicioSnacks{
         if(!existe){
             cargarSnacksIniciales();
         }
+    }
+
+    private List<Snack> obtenerSnacks() {
+        var snacks = new ArrayList<Snack>();
+        try{
+            List<String> lineas = Files.readAllLines(Paths.get(NOMBRE_ARCHIVO));
+            for(String linea: lineas){
+                String[] lineaSnack = linea.split(",");
+                var idSnack = lineaSnack[0]; //no se usa
+                var nombreSnack = lineaSnack[1];
+                var precioSnack = Double.parseDouble(lineaSnack[2]);
+                var snack = new Snack(nombreSnack, precioSnack);
+                snacks.add(snack); //agregamos el snack leido a la lista
+            }
+        }catch(Exception e){
+            System.out.println("Error al leer el archivo "+e.getMessage());
+            e.printStackTrace();
+        }
+        return snacks;
     }
 
     private void cargarSnacksIniciales(){
@@ -56,7 +77,7 @@ public class ServicioSnacksArchivos implements ISevicioSnacks{
         try{
             anexar = archivo.exists();
             var salida = new PrintWriter(new FileWriter(archivo, anexar));
-            salida.println(snack);
+            salida.println(snack.escribirSnack());
             salida.close();
         }catch (Exception e){
             System.out.println("Error al agregar el snack "+e.getMessage());
@@ -65,11 +86,16 @@ public class ServicioSnacksArchivos implements ISevicioSnacks{
 
     @Override
     public void mostrarSnack() {
-
+        System.out.println("--- Snacks en el inventario ---");
+        var inventarioSnacks = "";
+        for(var snack: this.snacks){
+            inventarioSnacks += snack.toString() + "\n";
+        }
+        System.out.println(inventarioSnacks);
     }
 
     @Override
     public List<Snack> getSnacks() {
-        return List.of();
+        return this.snacks;
     }
 }

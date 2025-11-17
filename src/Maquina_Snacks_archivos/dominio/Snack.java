@@ -46,11 +46,14 @@ public class Snack implements Serializable {
 
     @Override
     public String toString() {
-        return "Snack{" +
-                "idSnack =" + idSnack +
-                ", nombre ='" + nombre + '\'' +
-                ", precio =" + precio +
-                '}';
+        return "Snack [" +
+                "idSnack = " + idSnack +
+                ", nombre = '" + nombre + '\'' +
+                ", precio = " + precio +
+                "]";
+    }
+    public String escribirSnack(){
+        return idSnack + "," + nombre + "," + precio;
     }
 
     @Override

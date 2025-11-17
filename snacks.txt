@@ -1,3 +1,4 @@
-Snack{idSnack=1, nombre='Patatas', precio=1.1}
-Snack{idSnack=2, nombre='Refresco', precio=1.5}
-Snack{idSnack=3, nombre='Bocadillo', precio=2.1}
+1,Patatas,1.1
+2,Refresco,1.5
+3,Bocadillo,2.1
+4,Chocolate,0.3
